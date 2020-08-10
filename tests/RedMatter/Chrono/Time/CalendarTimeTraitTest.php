@@ -5,7 +5,6 @@
 
 namespace RedMatter\Chrono\Time;
 
-use DateTime;
 use PHPUnit\Framework\TestCase;
 use RedMatter\Chrono\Duration\Seconds;
 
@@ -15,7 +14,6 @@ class CalendarTimeTraitTest extends TestCase
      * @dataProvider providesData
      *
      * @param           $secondsSinceEpoch
-     * @param DateTime $dateTime
      */
     public function testGetDateTime($secondsSinceEpoch)
     {
