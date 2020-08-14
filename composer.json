@@ -30,10 +30,12 @@
     "phpdoc-md": [
       "@php vendor/bin/phpdoc-md generate src > docs/phpdoc.md",
       "@php scripts/phpdoc-md-fix-anchors.php docs/phpdoc.md"
-    ]
+    ],
+    "test": "phpunit"
   },
   "scripts-descriptions": {
-    "phpdoc-md": "Generate markdown from phpdoc comments"
+    "phpdoc-md": "Generate markdown from phpdoc comments",
+    "phpunit": "Run PHPUnit tests"
   },
  "license": "MIT",
   "authors": [
