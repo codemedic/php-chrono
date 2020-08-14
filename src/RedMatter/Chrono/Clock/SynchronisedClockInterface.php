@@ -7,7 +7,7 @@ namespace RedMatter\Chrono\Clock;
 
 use RedMatter\Chrono\Duration\Duration;
 use RedMatter\Chrono\Time\SteadyTime;
-use RedMatter\Chrono\Time\Time;
+use RedMatter\Chrono\Time\CalendarTime;
 
 /**
  * SynchronisedClockInterface is to be used in cases where the logic would rely on
@@ -18,7 +18,7 @@ interface SynchronisedClockInterface
     /**
      * Get time from the embedded Clock.
      *
-     * @return Time
+     * @return CalendarTime
      */
     public function getTime();
 

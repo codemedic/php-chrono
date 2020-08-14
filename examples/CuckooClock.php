@@ -9,7 +9,7 @@ use DateTime;
 use DateTimeZone;
 use RedMatter\Chrono\Clock\ClockInterface;
 use RedMatter\Chrono\Duration\Seconds;
-use RedMatter\Chrono\Time\Time;
+use RedMatter\Chrono\Time\CalendarTime;
 
 class CuckooClock
 {
@@ -37,7 +37,7 @@ class CuckooClock
         $this->cuckoo++;
     }
 
-    private function announceTime(Time $time)
+    private function announceTime(CalendarTime $time)
     {
         list($hours, $minutes, $seconds) = array_map(
             function ($v) {
@@ -69,7 +69,7 @@ class CuckooClock
 
     public function runUntil(DateTime $until)
     {
-        $timeUntil = Time::fromDateTime($until);
+        $timeUntil = CalendarTime::fromDateTime($until);
         while (true) {
             $now = $this->clock->now();
             if ($now->isAfter($timeUntil)) {

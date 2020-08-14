@@ -28,7 +28,7 @@ class TimeTest extends TestCase
         $time = $clock->now();
         $steadyTime = $steadyClock->now();
 
-        $timeFromSteadyTime = Time::fromSteadyTime($steadyTime);
+        $timeFromSteadyTime = CalendarTime::fromSteadyTime($steadyTime);
 
         self::assertEquals(
             $time->secondsSinceEpoch()->value(),
@@ -46,7 +46,7 @@ class TimeTest extends TestCase
         // create a DateTime with higher precision time
         $dateTime = DateTime::createFromFormat('U.u', microtime(true));
 
-        $timeFromDateTime = Time::fromDateTime($dateTime);
+        $timeFromDateTime = CalendarTime::fromDateTime($dateTime);
 
         self::assertEquals(
             $time->secondsSinceEpoch()->value(),
@@ -59,11 +59,11 @@ class TimeTest extends TestCase
     /**
      * @dataProvider providesTestOperationsData
      *
-     * @param Time     $time
+     * @param CalendarTime     $time
      * @param Duration $duration
-     * @param Time     $expected
+     * @param CalendarTime     $expected
      */
-    public function testOperations(Time $time, Duration $duration, Time $expected)
+    public function testOperations(CalendarTime $time, Duration $duration, CalendarTime $expected)
     {
         $timeValue = $time->secondsSinceEpoch()->value();
 
@@ -110,10 +110,10 @@ class TimeTest extends TestCase
     /**
      * @dataProvider providesTestToStringData
      *
-     * @param Time $t
+     * @param CalendarTime $t
      * @param $str
      */
-    public function testToString(Time $t, $str)
+    public function testToString(CalendarTime $t, $str)
     {
         self::assertEquals($str, (string)$t);
     }
@@ -153,27 +153,27 @@ class TimeTest extends TestCase
 
     public function providesTestOperationsData()
     {
-        $now = new Time(0.0);
+        $now = new CalendarTime(0.0);
 
         return [
-            [$now, new Days(1), new Time(86400)],
-            [$now, new Hours(1), new Time(3600)],
-            [$now, new Minutes(1), new Time(60)],
-            [$now, new Seconds(10), new Time(10)],
-            [$now, new MilliSeconds(10), new Time(0.01)],
-            [$now, new MicroSeconds(10), new Time(0.00001)],
-            [$now, new NanoSeconds(10), new Time(0.00000001)],
-            [$now, new NanoSeconds(0), new Time(0)],
+            [$now, new Days(1), new CalendarTime(86400)],
+            [$now, new Hours(1), new CalendarTime(3600)],
+            [$now, new Minutes(1), new CalendarTime(60)],
+            [$now, new Seconds(10), new CalendarTime(10)],
+            [$now, new MilliSeconds(10), new CalendarTime(0.01)],
+            [$now, new MicroSeconds(10), new CalendarTime(0.00001)],
+            [$now, new NanoSeconds(10), new CalendarTime(0.00000001)],
+            [$now, new NanoSeconds(0), new CalendarTime(0)],
         ];
     }
 
     public function providesTestIsEqualData()
     {
         return [
-            [new Time(1.0), new SteadyTime(1.0), false],
-            [new Time(1.0), new Time(1.0), true],
+            [new CalendarTime(1.0), new SteadyTime(1.0), false],
+            [new CalendarTime(1.0), new CalendarTime(1.0), true],
             [new SteadyTime(1.0), new SteadyTime(1.0), true],
-            [new Time(0), new Time(0), true],
+            [new CalendarTime(0), new CalendarTime(0), true],
             [new SteadyTime(0), new SteadyTime(0), true],
         ];
     }
@@ -181,29 +181,29 @@ class TimeTest extends TestCase
     public function providesTestDiffData()
     {
         return [
-            [new Time(1), new Time(2), new Seconds(-1)],
-            [new Time(0), new Time(2), new Seconds(-2)],
-            [new Time(-1), new Time(2), new Seconds(-3)],
-            [new Time(1), new SteadyTime(2)],
-            [new SteadyTime(1), new Time(2)],
+            [new CalendarTime(1), new CalendarTime(2), new Seconds(-1)],
+            [new CalendarTime(0), new CalendarTime(2), new Seconds(-2)],
+            [new CalendarTime(-1), new CalendarTime(2), new Seconds(-3)],
+            [new CalendarTime(1), new SteadyTime(2)],
+            [new SteadyTime(1), new CalendarTime(2)],
         ];
     }
 
     public function providesTestToStringData()
     {
         return [
-            [new Time(0), '1970-01-01T00:00:00.000000+00:00'],
-            [new Time(-1), '1969-12-31T23:59:59.000000+00:00'],
+            [new CalendarTime(0), '1970-01-01T00:00:00.000000+00:00'],
+            [new CalendarTime(-1), '1969-12-31T23:59:59.000000+00:00'],
         ];
     }
 
     public function providesTestBeforeData()
     {
         return [
-            [new Time(1), new Seconds(1)],
-            [new Time(1), new Seconds(-1)],
-            [new Time(0), new Seconds(-1)],
-            [new Time(-1), new Seconds(-1)],
+            [new CalendarTime(1), new Seconds(1)],
+            [new CalendarTime(1), new Seconds(-1)],
+            [new CalendarTime(0), new Seconds(-1)],
+            [new CalendarTime(-1), new Seconds(-1)],
             [new SteadyTime(1), new Seconds(1)],
             [new SteadyTime(1), new Seconds(-1)],
             [new SteadyTime(0), new Seconds(-1)],

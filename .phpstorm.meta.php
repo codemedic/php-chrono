@@ -25,7 +25,7 @@ namespace PHPSTORM_META {
         DATE_RFC7231,
         DATE_RSS,
         DATE_W3C,
-        \RedMatter\Chrono\Time\Time::DEFAULT_FORMAT
+        \RedMatter\Chrono\Time\CalendarTime::DEFAULT_FORMAT
     );
 
     expectedArguments(
@@ -47,7 +47,7 @@ namespace PHPSTORM_META {
     );
 
     expectedArguments(
-        \RedMatter\Chrono\Time\Time::format(),
+        \RedMatter\Chrono\Time\CalendarTime::format(),
         0,
         argumentsSet("redmatter_chrono_time_format")
     );

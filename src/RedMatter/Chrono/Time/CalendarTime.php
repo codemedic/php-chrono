@@ -10,7 +10,7 @@ use DateTimeZone;
 use RedMatter\Chrono\Clock\Clock;
 use RedMatter\Chrono\Clock\SteadyClock;
 
-class Time implements TimeInterface, CalendarTimeInterface
+class CalendarTime implements TimeInterface, CalendarTimeInterface
 {
     use TimeTrait;
     use CalendarTimeTrait;
@@ -24,7 +24,7 @@ class Time implements TimeInterface, CalendarTimeInterface
      *
      * @param SteadyTime $t
      *
-     * @return Time
+     * @return CalendarTime
      */
     public static function fromSteadyTime(SteadyTime $t)
     {
@@ -42,7 +42,7 @@ class Time implements TimeInterface, CalendarTimeInterface
      *
      * @param DateTime $time
      *
-     * @return Time
+     * @return CalendarTime
      */
     public static function fromDateTime(DateTime $time)
     {

@@ -9,7 +9,7 @@ use DateTime;
 use RedMatter\Chrono\Clock\ClockInterface;
 use RedMatter\Chrono\Duration\Duration;
 use RedMatter\Chrono\Duration\Unit;
-use RedMatter\Chrono\Time\Time;
+use RedMatter\Chrono\Time\CalendarTime;
 use RuntimeException;
 
 /**
@@ -24,9 +24,9 @@ class Clock implements ClockInterface
     /**
      * Set the time
      *
-     * @param Time $time
+     * @param CalendarTime $time
      */
-    public function setTime(Time $time)
+    public function setTime(CalendarTime $time)
     {
         $this->time = (float)$time->secondsSinceEpoch()->value(Unit::NANOSECONDS);
     }
@@ -38,7 +38,7 @@ class Clock implements ClockInterface
      */
     public function setDateTime(DateTime $time)
     {
-        $this->setTime(Time::fromDateTime($time));
+        $this->setTime(CalendarTime::fromDateTime($time));
     }
 
     /**
@@ -64,12 +64,12 @@ class Clock implements ClockInterface
     }
 
     /**
-     * @see ClockInterface::now()
+     * @return CalendarTime
+     *@see ClockInterface::now()
      *
-     * @return Time
      */
     public function now()
     {
-        return new Time($this->time / 1e9);
+        return new CalendarTime($this->time / 1e9);
     }
 }

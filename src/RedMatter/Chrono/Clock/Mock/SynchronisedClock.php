@@ -9,7 +9,7 @@ use DateTime;
 use RedMatter\Chrono\Clock\SynchronisedClockInterface;
 use RedMatter\Chrono\Duration\Duration;
 use RedMatter\Chrono\Time\SteadyTime;
-use RedMatter\Chrono\Time\Time;
+use RedMatter\Chrono\Time\CalendarTime;
 
 /**
  * A utility class to keep the two clocks in sync.
@@ -48,9 +48,9 @@ class SynchronisedClock implements SynchronisedClockInterface
     }
 
     /**
-     * @see \RedMatter\Chrono\Clock\SynchronisedClockInterface::getTime()
+     * @return CalendarTime
+     *@see \RedMatter\Chrono\Clock\SynchronisedClockInterface::getTime()
      *
-     * @return Time
      */
     public function getTime()
     {

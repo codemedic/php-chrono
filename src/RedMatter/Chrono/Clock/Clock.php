@@ -5,7 +5,7 @@
 
 namespace RedMatter\Chrono\Clock;
 
-use RedMatter\Chrono\Time\Time;
+use RedMatter\Chrono\Time\CalendarTime;
 
 /**
  * Wraps `\microtime` to get calendar time.
@@ -19,6 +19,6 @@ class Clock implements ClockInterface
      */
     public function now()
     {
-        return new Time(microtime(true));
+        return new CalendarTime(microtime(true));
     }
 }

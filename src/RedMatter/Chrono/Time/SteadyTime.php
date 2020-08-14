@@ -18,11 +18,11 @@ class SteadyTime implements TimeInterface
      * <p>
      * NOTE: Accuracy will be affected by the PHP version; php >= 7.3 preferred
      *
-     * @param Time $t
+     * @param CalendarTime $t
      *
      * @return SteadyTime
      */
-    public static function fromTime(Time $t)
+    public static function fromTime(CalendarTime $t)
     {
         $steadyClock = new SteadyClock();
         $clock = new Clock();

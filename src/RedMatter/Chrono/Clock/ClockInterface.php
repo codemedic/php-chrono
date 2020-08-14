@@ -6,7 +6,7 @@
 namespace RedMatter\Chrono\Clock;
 
 use RedMatter\Chrono\Duration\Duration;
-use RedMatter\Chrono\Time\Time;
+use RedMatter\Chrono\Time\CalendarTime;
 
 interface ClockInterface
 {
@@ -17,7 +17,7 @@ interface ClockInterface
      * Difference between two values obtained after a specific duration need not be
      * the same at all times.
      *
-     * @return Time
+     * @return CalendarTime
      */
     public function now();
 
