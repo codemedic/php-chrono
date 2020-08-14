@@ -19,7 +19,7 @@
 - [\RedMatter\Chrono\Duration\Hours](#class-redmatterchronodurationhours)
 - [\RedMatter\Chrono\Duration\Seconds](#class-redmatterchronodurationseconds)
 - [\RedMatter\Chrono\Time\SteadyTime](#class-redmatterchronotimesteadytime)
-- [\RedMatter\Chrono\Time\Time](#class-redmatterchronotimetime)
+- [\RedMatter\Chrono\Time\CalendarTime](#class-redmatterchronotimecalendartime)
 - [\RedMatter\Chrono\Time\CalendarTimeInterface (interface)](#interface-redmatterchronotimecalendartimeinterface)
 - [\RedMatter\Chrono\Time\TimeInterface (interface)](#interface-redmatterchronotimetimeinterface)
 
@@ -31,7 +31,7 @@
 | Visibility | Function |
 |:-----------|:---------|
 | public | <strong>elapse(</strong><em>[\RedMatter\Chrono\Duration\Duration](#class-redmatterchronodurationduration)</em> <strong>$duration</strong>)</strong> : <em>bool</em><br /><em>When the function returns, the clock would have elapsed by the specified duration. <p> Returns false on failure or interruptions; otherwise true.</em> |
-| public | <strong>now()</strong> : <em>[\RedMatter\Chrono\Time\Time](#class-redmatterchronotimetime)</em><br /><em>Get current calendar-time. <p> Time readings returned are subject to changes for clock synchronization. Difference between two values obtained after a specific duration need not be the same at all times.</em> |
+| public | <strong>now()</strong> : <em>[\RedMatter\Chrono\Time\CalendarTime](#class-redmatterchronotimecalendartime)</em><br /><em>Get current calendar-time. <p> Time readings returned are subject to changes for clock synchronization. Difference between two values obtained after a specific duration need not be the same at all times.</em> |
 
 <hr />
 
@@ -44,7 +44,7 @@
 |:-----------|:---------|
 | public | <strong>elapse(</strong><em>[\RedMatter\Chrono\Duration\Duration](#class-redmatterchronodurationduration)</em> <strong>$duration</strong>)</strong> : <em>bool</em><br /><em>When the function returns, the clock would have elapsed by the specified duration. <p> Returns false on failure or interruptions; otherwise true.</em> |
 | public | <strong>getSteadyTime()</strong> : <em>[\RedMatter\Chrono\Time\SteadyTime](#class-redmatterchronotimesteadytime)</em><br /><em>Get time from the embedded SteadyClock.</em> |
-| public | <strong>getTime()</strong> : <em>[\RedMatter\Chrono\Time\Time](#class-redmatterchronotimetime)</em><br /><em>Get time from the embedded Clock.</em> |
+| public | <strong>getTime()</strong> : <em>[\RedMatter\Chrono\Time\CalendarTime](#class-redmatterchronotimecalendartime)</em><br /><em>Get time from the embedded Clock.</em> |
 | public | <strong>perform(</strong><em>\callable</em> <strong>$f</strong>, <em>\RedMatter\Chrono\Clock\Duration/null</em> <strong>$d=null</strong>)</strong> : <em>mixed</em><br /><em>Perform $f <p> When the function returns, the clock would have elapsed by the duration it took for $f to finish. <p> NOTE: This is meant for time sensitive use cases (from unit-testing perspective) where both the clocks should absolutely be in sync. <p> Returns the return value from $f</em> |
 
 <hr />
@@ -73,7 +73,7 @@
 | public | <strong>__construct()</strong> : <em>void</em> |
 | public | <strong>elapse(</strong><em>[\RedMatter\Chrono\Duration\Duration](#class-redmatterchronodurationduration)</em> <strong>$duration</strong>)</strong> : <em>bool</em><br /><em>When the function returns, the clock would have elapsed by the specified duration. <p> Returns false on failure or interruptions; otherwise true.</em> |
 | public | <strong>getSteadyTime()</strong> : <em>[\RedMatter\Chrono\Time\SteadyTime](#class-redmatterchronotimesteadytime)</em><br /><em>Get time from the embedded SteadyClock.</em> |
-| public | <strong>getTime()</strong> : <em>[\RedMatter\Chrono\Time\Time](#class-redmatterchronotimetime)</em><br /><em>Get time from the embedded Clock.</em> |
+| public | <strong>getTime()</strong> : <em>[\RedMatter\Chrono\Time\CalendarTime](#class-redmatterchronotimecalendartime)</em><br /><em>Get time from the embedded Clock.</em> |
 | public | <strong>perform(</strong><em>\callable</em> <strong>$f</strong>, <em>\RedMatter\Chrono\Clock\Duration/null</em> <strong>$d=null</strong>)</strong> : <em>mixed</em><br /><em>Perform $f <p> When the function returns, the clock would have elapsed by the duration it took for $f to finish. <p> NOTE: This is meant for time sensitive use cases (from unit-testing perspective) where both the clocks should absolutely be in sync. <p> Returns the return value from $f</em> |
 
 *This class implements [\RedMatter\Chrono\Clock\SynchronisedClockInterface](#interface-redmatterchronoclocksynchronisedclockinterface)*
@@ -98,7 +98,7 @@
 | Visibility | Function |
 |:-----------|:---------|
 | public | <strong>elapse(</strong><em>[\RedMatter\Chrono\Duration\Duration](#class-redmatterchronodurationduration)</em> <strong>$duration</strong>)</strong> : <em>bool</em><br /><em>When the function returns, the clock would have elapsed by the specified duration. <p> Returns false on failure or interruptions; otherwise true.</em> |
-| public | <strong>now()</strong> : <em>[\RedMatter\Chrono\Time\Time](#class-redmatterchronotimetime)</em><br /><em>Get current calendar-time. <p> Time readings returned are subject to changes for clock synchronization. Difference between two values obtained after a specific duration need not be the same at all times.</em> |
+| public | <strong>now()</strong> : <em>[\RedMatter\Chrono\Time\CalendarTime](#class-redmatterchronotimecalendartime)</em><br /><em>Get current calendar-time. <p> Time readings returned are subject to changes for clock synchronization. Difference between two values obtained after a specific duration need not be the same at all times.</em> |
 
 *This class implements [\RedMatter\Chrono\Clock\ClockInterface](#interface-redmatterchronoclockclockinterface)*
 
@@ -129,7 +129,7 @@
 | public | <strong>__construct(</strong><em>\RedMatter\Chrono\Clock\Mock\DateTime/null/[\DateTime](http://php.net/manual/en/class.datetime.php)</em> <strong>$startTime=null</strong>)</strong> : <em>void</em><br /><em>Construct clocks, optionally set to a specific time.</em> |
 | public | <strong>elapse(</strong><em>[\RedMatter\Chrono\Duration\Duration](#class-redmatterchronodurationduration)</em> <strong>$duration</strong>)</strong> : <em>bool</em> |
 | public | <strong>getSteadyTime()</strong> : <em>[\RedMatter\Chrono\Time\SteadyTime](#class-redmatterchronotimesteadytime)</em> |
-| public | <strong>getTime()</strong> : <em>[\RedMatter\Chrono\Time\Time](#class-redmatterchronotimetime)</em> |
+| public | <strong>getTime()</strong> : <em>[\RedMatter\Chrono\Time\CalendarTime](#class-redmatterchronotimecalendartime)</em> |
 | public | <strong>perform(</strong><em>\callable</em> <strong>$f</strong>, <em>\RedMatter\Chrono\Clock\Mock\Duration/null</em> <strong>$d=null</strong>)</strong> : <em>mixed</em> |
 
 *This class implements [\RedMatter\Chrono\Clock\SynchronisedClockInterface](#interface-redmatterchronoclocksynchronisedclockinterface)*
@@ -144,9 +144,9 @@
 | Visibility | Function |
 |:-----------|:---------|
 | public | <strong>elapse(</strong><em>[\RedMatter\Chrono\Duration\Duration](#class-redmatterchronodurationduration)</em> <strong>$duration</strong>)</strong> : <em>bool</em> |
-| public | <strong>now()</strong> : <em>[\RedMatter\Chrono\Time\Time](#class-redmatterchronotimetime)</em> |
+| public | <strong>now()</strong> : <em>[\RedMatter\Chrono\Time\CalendarTime](#class-redmatterchronotimecalendartime)</em> |
 | public | <strong>setDateTime(</strong><em>[\DateTime](http://php.net/manual/en/class.datetime.php)</em> <strong>$time</strong>)</strong> : <em>void</em><br /><em>Set the time from DateTime</em> |
-| public | <strong>setTime(</strong><em>[\RedMatter\Chrono\Time\Time](#class-redmatterchronotimetime)</em> <strong>$time</strong>)</strong> : <em>void</em><br /><em>Set the time</em> |
+| public | <strong>setTime(</strong><em>[\RedMatter\Chrono\Time\CalendarTime](#class-redmatterchronotimecalendartime)</em> <strong>$time</strong>)</strong> : <em>void</em><br /><em>Set the time</em> |
 
 *This class implements [\RedMatter\Chrono\Clock\ClockInterface](#interface-redmatterchronoclockclockinterface)*
 
@@ -280,7 +280,7 @@ $d2 = MicroSeconds::createFrom($d1);
 | public | <strong>after(</strong><em>[\RedMatter\Chrono\Duration\Duration](#class-redmatterchronodurationduration)</em> <strong>$duration</strong>)</strong> : <em>\RedMatter\Chrono\Time\static</em><br /><em>Get time that is after $this by $duration</em> |
 | public | <strong>before(</strong><em>[\RedMatter\Chrono\Duration\Duration](#class-redmatterchronodurationduration)</em> <strong>$duration</strong>)</strong> : <em>\RedMatter\Chrono\Time\static</em><br /><em>Get time that is before $this by $duration</em> |
 | public | <strong>diff(</strong><em>[\RedMatter\Chrono\Time\TimeInterface](#interface-redmatterchronotimetimeinterface)</em> <strong>$other</strong>)</strong> : <em>\RedMatter\Chrono\Time\Duration</em><br /><em>Get difference between times</em> |
-| public static | <strong>fromTime(</strong><em>[\RedMatter\Chrono\Time\Time](#class-redmatterchronotimetime)</em> <strong>$t</strong>)</strong> : <em>[\RedMatter\Chrono\Time\SteadyTime](#class-redmatterchronotimesteadytime)</em><br /><em>Convert calendar-time to monotonic-time. <p> NOTE: Accuracy will be affected by the PHP version; php >= 7.3 preferred</em> |
+| public static | <strong>fromTime(</strong><em>[\RedMatter\Chrono\Time\CalendarTime](#class-redmatterchronotimecalendartime)</em> <strong>$t</strong>)</strong> : <em>[\RedMatter\Chrono\Time\SteadyTime](#class-redmatterchronotimesteadytime)</em><br /><em>Convert calendar-time to monotonic-time. <p> NOTE: Accuracy will be affected by the PHP version; php >= 7.3 preferred</em> |
 | public | <strong>isAfter(</strong><em>[\RedMatter\Chrono\Time\TimeInterface](#interface-redmatterchronotimetimeinterface)</em> <strong>$other</strong>)</strong> : <em>bool</em><br /><em>Check if $this falls after $other.</em> |
 | public | <strong>isBefore(</strong><em>[\RedMatter\Chrono\Time\TimeInterface](#interface-redmatterchronotimetimeinterface)</em> <strong>$other</strong>)</strong> : <em>bool</em><br /><em>Check if $this falls before $other.</em> |
 | public | <strong>isEqual(</strong><em>[\RedMatter\Chrono\Time\TimeInterface](#interface-redmatterchronotimetimeinterface)</em> <strong>$other</strong>)</strong> : <em>bool</em><br /><em>Check if $other time is equal to $this; if they differ in type, it will be false.</em> |
@@ -290,8 +290,8 @@ $d2 = MicroSeconds::createFrom($d1);
 
 <hr />
 
-<a name="class-redmatterchronotimetime"></a>
-### Class: \RedMatter\Chrono\Time\Time
+<a name="class-redmatterchronotimecalendartime"></a>
+### Class: \RedMatter\Chrono\Time\CalendarTime
 
 | Visibility | Function |
 |:-----------|:---------|
@@ -301,8 +301,8 @@ $d2 = MicroSeconds::createFrom($d1);
 | public | <strong>before(</strong><em>[\RedMatter\Chrono\Duration\Duration](#class-redmatterchronodurationduration)</em> <strong>$duration</strong>)</strong> : <em>\RedMatter\Chrono\Time\static</em><br /><em>Get time that is before $this by $duration</em> |
 | public | <strong>diff(</strong><em>[\RedMatter\Chrono\Time\TimeInterface](#interface-redmatterchronotimetimeinterface)</em> <strong>$other</strong>)</strong> : <em>\RedMatter\Chrono\Time\Duration</em><br /><em>Get difference between times</em> |
 | public | <strong>format(</strong><em>string</em> <strong>$fmt=`'Y-m-d\TH:i:s.uP'`</strong>, <em>\RedMatter\Chrono\Time\DateTimeZone/null/[\DateTimeZone](http://php.net/manual/en/class.datetimezone.php)</em> <strong>$timeZone=null</strong>)</strong> : <em>string</em><br /><em>Format time using DateTime::format</em> |
-| public static | <strong>fromDateTime(</strong><em>[\DateTime](http://php.net/manual/en/class.datetime.php)</em> <strong>$time</strong>)</strong> : <em>[\RedMatter\Chrono\Time\Time](#class-redmatterchronotimetime)</em><br /><em>Convert DateTime to calendar-time.</em> |
-| public static | <strong>fromSteadyTime(</strong><em>[\RedMatter\Chrono\Time\SteadyTime](#class-redmatterchronotimesteadytime)</em> <strong>$t</strong>)</strong> : <em>[\RedMatter\Chrono\Time\Time](#class-redmatterchronotimetime)</em><br /><em>Convert monotonic-time to calendar-time <p> NOTE: Accuracy will be affected by the PHP version; php >= 7.3 preferred</em> |
+| public static | <strong>fromDateTime(</strong><em>[\DateTime](http://php.net/manual/en/class.datetime.php)</em> <strong>$time</strong>)</strong> : <em>[\RedMatter\Chrono\Time\CalendarTime](#class-redmatterchronotimecalendartime)</em><br /><em>Convert DateTime to calendar-time.</em> |
+| public static | <strong>fromSteadyTime(</strong><em>[\RedMatter\Chrono\Time\SteadyTime](#class-redmatterchronotimesteadytime)</em> <strong>$t</strong>)</strong> : <em>[\RedMatter\Chrono\Time\CalendarTime](#class-redmatterchronotimecalendartime)</em><br /><em>Convert monotonic-time to calendar-time <p> NOTE: Accuracy will be affected by the PHP version; php >= 7.3 preferred</em> |
 | public | <strong>getDateTime(</strong><em>\RedMatter\Chrono\Time\DateTimeZone/null/[\DateTimeZone](http://php.net/manual/en/class.datetimezone.php)</em> <strong>$timeZone=null</strong>)</strong> : <em>\RedMatter\Chrono\Time\DateTime</em><br /><em>Get DateTime If no timezone is specified, it is set to '+00:00'.</em> |
 | public | <strong>getUnixTime(</strong><em>bool</em> <strong>$float=false</strong>)</strong> : <em>int/float</em><br /><em>Get unixtime</em> |
 | public | <strong>isAfter(</strong><em>[\RedMatter\Chrono\Time\TimeInterface](#interface-redmatterchronotimetimeinterface)</em> <strong>$other</strong>)</strong> : <em>bool</em><br /><em>Check if $this falls after $other.</em> |
