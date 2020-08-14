@@ -16,7 +16,7 @@ use RedMatter\Chrono\Time\CalendarTime;
  */
 class SynchronisedClock implements SynchronisedClockInterface
 {
-    /** @var Clock */
+    /** @var CalendarClock */
     private $mockClock;
     /** @var SteadyClock */
     private $mockSteadyClock;
@@ -28,7 +28,7 @@ class SynchronisedClock implements SynchronisedClockInterface
      */
     public function __construct(DateTime $startTime = null)
     {
-        $this->mockClock = new Clock();
+        $this->mockClock = new CalendarClock();
         $this->mockSteadyClock = new SteadyClock();
 
         if ($startTime !== null) {

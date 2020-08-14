@@ -7,7 +7,7 @@ namespace RedMatter\Chrono\Time;
 
 use DateTime;
 use PHPUnit\Framework\TestCase;
-use RedMatter\Chrono\Clock\Clock;
+use RedMatter\Chrono\Clock\CalendarClock;
 use RedMatter\Chrono\Clock\SteadyClock;
 use RedMatter\Chrono\Duration\Days;
 use RedMatter\Chrono\Duration\Duration;
@@ -22,7 +22,7 @@ class TimeTest extends TestCase
 {
     public function testFromSteadyTime()
     {
-        $clock = new Clock();
+        $clock = new CalendarClock();
         $steadyClock = new SteadyClock();
 
         $time = $clock->now();
@@ -40,7 +40,7 @@ class TimeTest extends TestCase
 
     public function testFromDateTime()
     {
-        $clock = new Clock();
+        $clock = new CalendarClock();
         $time = $clock->now();
 
         // create a DateTime with higher precision time

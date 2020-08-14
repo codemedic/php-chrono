@@ -11,7 +11,7 @@ use RedMatter\Chrono\Duration\Unit;
 use RedMatter\Chrono\Time\SteadyTime;
 
 /**
- * Mock Clock that provides `\RedMatter\Chrono\SteadyClockInterface`.
+ * Mock Clock that models monotonic-clock.
  */
 class SteadyClock implements SteadyClockInterface
 {
@@ -28,14 +28,14 @@ class SteadyClock implements SteadyClockInterface
     }
 
     /**
-     * @see ClockInterface::elapse()
+     * @param Duration $duration
+     *
+     * @return bool
+     *@see CalendarClockInterface::elapse()
      *
      * <p>
      * NOTE: This mock version returns true always.
      *
-     * @param Duration $duration
-     *
-     * @return bool
      */
     public function elapse(Duration $duration)
     {
@@ -45,9 +45,9 @@ class SteadyClock implements SteadyClockInterface
     }
 
     /**
-     * @see ClockInterface::now()
-     *
      * @return SteadyTime
+     * @see CalendarClockInterface::now()
+     *
      */
     public function now()
     {

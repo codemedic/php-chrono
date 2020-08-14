@@ -10,7 +10,7 @@ use RedMatter\Chrono\Time\CalendarTime;
 /**
  * Wraps `\microtime` to get calendar time.
  */
-class Clock implements ClockInterface
+class CalendarClock implements CalendarClockInterface
 {
     use SleepableClockTrait;
 

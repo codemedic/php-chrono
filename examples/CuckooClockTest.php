@@ -9,7 +9,7 @@ use DateInterval;
 use DateTime;
 use DateTimeZone;
 use PHPUnit\Framework\TestCase;
-use RedMatter\Chrono\Clock\Mock\Clock as MockClock;
+use RedMatter\Chrono\Clock\Mock\CalendarClock as MockClock;
 
 class CuckooClockTest extends TestCase
 {

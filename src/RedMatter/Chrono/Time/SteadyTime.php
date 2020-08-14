@@ -5,7 +5,7 @@
 
 namespace RedMatter\Chrono\Time;
 
-use RedMatter\Chrono\Clock\Clock;
+use RedMatter\Chrono\Clock\CalendarClock;
 use RedMatter\Chrono\Clock\SteadyClock;
 use RedMatter\Chrono\Duration\Unit;
 
@@ -25,7 +25,7 @@ class SteadyTime implements TimeInterface
     public static function fromTime(CalendarTime $t)
     {
         $steadyClock = new SteadyClock();
-        $clock = new Clock();
+        $clock = new CalendarClock();
 
         return $steadyClock->now()
             ->after(

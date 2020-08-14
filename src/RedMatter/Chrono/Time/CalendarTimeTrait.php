@@ -28,7 +28,7 @@ trait CalendarTimeTrait
 
         $sinceEpoch = $this->secondsSinceEpoch();
         // ensure decimal number
-        $strSinceEpoch = sprintf('%0.1f', $sinceEpoch->value());
+        $strSinceEpoch = sprintf('%0.6f', $sinceEpoch->value());
         $ret = DateTime::createFromFormat('U.u', $strSinceEpoch);
         if ($ret === false) {
             throw new RuntimeException("Failed to convert to DateTime");

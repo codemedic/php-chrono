@@ -14,14 +14,14 @@ class SynchronisedClock implements SynchronisedClockInterface
 {
     use SleepableClockTrait;
 
-    /** @var Clock */
+    /** @var CalendarClock */
     protected $clock;
     /** @var SteadyClock */
     protected $steadyClock;
 
     public function __construct()
     {
-        $this->clock = new Clock();
+        $this->clock = new CalendarClock();
         $this->steadyClock = new SteadyClock();
     }
 

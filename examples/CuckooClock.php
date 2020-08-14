@@ -7,7 +7,7 @@ namespace RedMatter\Examples;
 
 use DateTime;
 use DateTimeZone;
-use RedMatter\Chrono\Clock\ClockInterface;
+use RedMatter\Chrono\Clock\CalendarClockInterface;
 use RedMatter\Chrono\Duration\Seconds;
 use RedMatter\Chrono\Time\CalendarTime;
 
@@ -19,7 +19,7 @@ use RedMatter\Chrono\Time\CalendarTime;
  */
 class CuckooClock
 {
-    /** @var ClockInterface */
+    /** @var CalendarClockInterface */
     private $clock;
     /** @var DateTimeZone */
     private $timeZone;
@@ -27,7 +27,7 @@ class CuckooClock
     public $cuckoo = 0;
     public $music = 0;
 
-    public function __construct(ClockInterface $clock, DateTimeZone $timeZone)
+    public function __construct(CalendarClockInterface $clock, DateTimeZone $timeZone)
     {
         $this->clock = $clock;
         $this->timeZone = $timeZone;

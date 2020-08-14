@@ -8,7 +8,7 @@ namespace RedMatter\Chrono\Clock;
 use RedMatter\Chrono\Duration\Duration;
 use RedMatter\Chrono\Time\CalendarTime;
 
-interface ClockInterface
+interface CalendarClockInterface
 {
     /**
      * Get current calendar-time.

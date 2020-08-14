@@ -6,14 +6,14 @@
 namespace RedMatter\Chrono\Time;
 
 use PHPUnit\Framework\TestCase;
-use RedMatter\Chrono\Clock\Clock;
+use RedMatter\Chrono\Clock\CalendarClock;
 use RedMatter\Chrono\Clock\SteadyClock;
 
 class SteadyTimeTest extends TestCase
 {
     public function testFromTime()
     {
-        $clock = new Clock();
+        $clock = new CalendarClock();
         $steadyClock = new SteadyClock();
 
         $time = $clock->now();

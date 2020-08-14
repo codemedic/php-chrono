@@ -6,18 +6,18 @@
 namespace RedMatter\Chrono\Clock\Mock;
 
 use DateTime;
-use RedMatter\Chrono\Clock\ClockInterface;
+use RedMatter\Chrono\Clock\CalendarClockInterface;
 use RedMatter\Chrono\Duration\Duration;
 use RedMatter\Chrono\Duration\Unit;
 use RedMatter\Chrono\Time\CalendarTime;
 use RuntimeException;
 
 /**
- * Mock Clock that provides `\RedMatter\Chrono\ClockInterface`.
+ * Mock Clock that models calendar-clock.
  *
  * @see \RedMatter\Examples\CuckooClockTest
  */
-class Clock implements ClockInterface
+class CalendarClock implements CalendarClockInterface
 {
     private $time = 0;
 
@@ -42,14 +42,14 @@ class Clock implements ClockInterface
     }
 
     /**
-     * @see ClockInterface::elapse()
+     * @param Duration $duration
+     *
+     * @return bool
+     *@see CalendarClockInterface::elapse()
      *
      * <p>
      * NOTE: The mock version would always return true.
      *
-     * @param Duration $duration
-     *
-     * @return bool
      */
     public function elapse(Duration $duration)
     {
@@ -65,7 +65,7 @@ class Clock implements ClockInterface
 
     /**
      * @return CalendarTime
-     *@see ClockInterface::now()
+     *@see CalendarClockInterface::now()
      *
      */
     public function now()
