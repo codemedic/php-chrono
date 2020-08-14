@@ -1,14 +1,14 @@
 ## Table of contents
 
-- [\RedMatter\Chrono\Clock\ClockInterface (interface)](#interface-redmatterchronoclockclockinterface)
+- [\RedMatter\Chrono\Clock\CalendarClockInterface (interface)](#interface-redmatterchronoclockcalendarclockinterface)
 - [\RedMatter\Chrono\Clock\SynchronisedClockInterface (interface)](#interface-redmatterchronoclocksynchronisedclockinterface)
+- [\RedMatter\Chrono\Clock\CalendarClock](#class-redmatterchronoclockcalendarclock)
 - [\RedMatter\Chrono\Clock\SteadyClock](#class-redmatterchronoclocksteadyclock)
 - [\RedMatter\Chrono\Clock\SynchronisedClock](#class-redmatterchronoclocksynchronisedclock)
 - [\RedMatter\Chrono\Clock\SteadyClockInterface (interface)](#interface-redmatterchronoclocksteadyclockinterface)
-- [\RedMatter\Chrono\Clock\Clock](#class-redmatterchronoclockclock)
+- [\RedMatter\Chrono\Clock\Mock\CalendarClock](#class-redmatterchronoclockmockcalendarclock)
 - [\RedMatter\Chrono\Clock\Mock\SteadyClock](#class-redmatterchronoclockmocksteadyclock)
 - [\RedMatter\Chrono\Clock\Mock\SynchronisedClock](#class-redmatterchronoclockmocksynchronisedclock)
-- [\RedMatter\Chrono\Clock\Mock\Clock](#class-redmatterchronoclockmockclock)
 - [\RedMatter\Chrono\Duration\Days](#class-redmatterchronodurationdays)
 - [\RedMatter\Chrono\Duration\Unit](#class-redmatterchronodurationunit)
 - [\RedMatter\Chrono\Duration\MilliSeconds](#class-redmatterchronodurationmilliseconds)
@@ -25,8 +25,8 @@
 
 <hr />
 
-<a name="interface-redmatterchronoclockclockinterface"></a>
-### Interface: \RedMatter\Chrono\Clock\ClockInterface
+<a name="interface-redmatterchronoclockcalendarclockinterface"></a>
+### Interface: \RedMatter\Chrono\Clock\CalendarClockInterface
 
 | Visibility | Function |
 |:-----------|:---------|
@@ -46,6 +46,20 @@
 | public | <strong>getSteadyTime()</strong> : <em>[\RedMatter\Chrono\Time\SteadyTime](#class-redmatterchronotimesteadytime)</em><br /><em>Get time from the embedded SteadyClock.</em> |
 | public | <strong>getTime()</strong> : <em>[\RedMatter\Chrono\Time\CalendarTime](#class-redmatterchronotimecalendartime)</em><br /><em>Get time from the embedded Clock.</em> |
 | public | <strong>perform(</strong><em>\callable</em> <strong>$f</strong>, <em>\RedMatter\Chrono\Clock\Duration/null</em> <strong>$d=null</strong>)</strong> : <em>mixed</em><br /><em>Perform $f <p> When the function returns, the clock would have elapsed by the duration it took for $f to finish. <p> NOTE: This is meant for time sensitive use cases (from unit-testing perspective) where both the clocks should absolutely be in sync. <p> Returns the return value from $f</em> |
+
+<hr />
+
+<a name="class-redmatterchronoclockcalendarclock"></a>
+### Class: \RedMatter\Chrono\Clock\CalendarClock
+
+> Wraps `\microtime` to get calendar time.
+
+| Visibility | Function |
+|:-----------|:---------|
+| public | <strong>elapse(</strong><em>[\RedMatter\Chrono\Duration\Duration](#class-redmatterchronodurationduration)</em> <strong>$duration</strong>)</strong> : <em>bool</em><br /><em>When the function returns, the clock would have elapsed by the specified duration. <p> Returns false on failure or interruptions; otherwise true.</em> |
+| public | <strong>now()</strong> : <em>[\RedMatter\Chrono\Time\CalendarTime](#class-redmatterchronotimecalendartime)</em><br /><em>Get current calendar-time. <p> Time readings returned are subject to changes for clock synchronization. Difference between two values obtained after a specific duration need not be the same at all times.</em> |
+
+*This class implements [\RedMatter\Chrono\Clock\CalendarClockInterface](#interface-redmatterchronoclockcalendarclockinterface)*
 
 <hr />
 
@@ -90,24 +104,26 @@
 
 <hr />
 
-<a name="class-redmatterchronoclockclock"></a>
-### Class: \RedMatter\Chrono\Clock\Clock
+<a name="class-redmatterchronoclockmockcalendarclock"></a>
+### Class: \RedMatter\Chrono\Clock\Mock\CalendarClock
 
-> Wraps `\microtime` to get calendar time.
+> Mock Clock that models calendar-clock.
 
 | Visibility | Function |
 |:-----------|:---------|
-| public | <strong>elapse(</strong><em>[\RedMatter\Chrono\Duration\Duration](#class-redmatterchronodurationduration)</em> <strong>$duration</strong>)</strong> : <em>bool</em><br /><em>When the function returns, the clock would have elapsed by the specified duration. <p> Returns false on failure or interruptions; otherwise true.</em> |
-| public | <strong>now()</strong> : <em>[\RedMatter\Chrono\Time\CalendarTime](#class-redmatterchronotimecalendartime)</em><br /><em>Get current calendar-time. <p> Time readings returned are subject to changes for clock synchronization. Difference between two values obtained after a specific duration need not be the same at all times.</em> |
+| public | <strong>elapse(</strong><em>[\RedMatter\Chrono\Duration\Duration](#class-redmatterchronodurationduration)</em> <strong>$duration</strong>)</strong> : <em>bool</em> |
+| public | <strong>now()</strong> : <em>[\RedMatter\Chrono\Time\CalendarTime](#class-redmatterchronotimecalendartime)</em> |
+| public | <strong>setDateTime(</strong><em>[\DateTime](http://php.net/manual/en/class.datetime.php)</em> <strong>$time</strong>)</strong> : <em>void</em><br /><em>Set the time from DateTime</em> |
+| public | <strong>setTime(</strong><em>[\RedMatter\Chrono\Time\CalendarTime](#class-redmatterchronotimecalendartime)</em> <strong>$time</strong>)</strong> : <em>void</em><br /><em>Set the time</em> |
 
-*This class implements [\RedMatter\Chrono\Clock\ClockInterface](#interface-redmatterchronoclockclockinterface)*
+*This class implements [\RedMatter\Chrono\Clock\CalendarClockInterface](#interface-redmatterchronoclockcalendarclockinterface)*
 
 <hr />
 
 <a name="class-redmatterchronoclockmocksteadyclock"></a>
 ### Class: \RedMatter\Chrono\Clock\Mock\SteadyClock
 
-> Mock Clock that provides `\RedMatter\Chrono\SteadyClockInterface`.
+> Mock Clock that models monotonic-clock.
 
 | Visibility | Function |
 |:-----------|:---------|
@@ -133,22 +149,6 @@
 | public | <strong>perform(</strong><em>\callable</em> <strong>$f</strong>, <em>\RedMatter\Chrono\Clock\Mock\Duration/null</em> <strong>$d=null</strong>)</strong> : <em>mixed</em> |
 
 *This class implements [\RedMatter\Chrono\Clock\SynchronisedClockInterface](#interface-redmatterchronoclocksynchronisedclockinterface)*
-
-<hr />
-
-<a name="class-redmatterchronoclockmockclock"></a>
-### Class: \RedMatter\Chrono\Clock\Mock\Clock
-
-> Mock Clock that provides `\RedMatter\Chrono\ClockInterface`.
-
-| Visibility | Function |
-|:-----------|:---------|
-| public | <strong>elapse(</strong><em>[\RedMatter\Chrono\Duration\Duration](#class-redmatterchronodurationduration)</em> <strong>$duration</strong>)</strong> : <em>bool</em> |
-| public | <strong>now()</strong> : <em>[\RedMatter\Chrono\Time\CalendarTime](#class-redmatterchronotimecalendartime)</em> |
-| public | <strong>setDateTime(</strong><em>[\DateTime](http://php.net/manual/en/class.datetime.php)</em> <strong>$time</strong>)</strong> : <em>void</em><br /><em>Set the time from DateTime</em> |
-| public | <strong>setTime(</strong><em>[\RedMatter\Chrono\Time\CalendarTime](#class-redmatterchronotimecalendartime)</em> <strong>$time</strong>)</strong> : <em>void</em><br /><em>Set the time</em> |
-
-*This class implements [\RedMatter\Chrono\Clock\ClockInterface](#interface-redmatterchronoclockclockinterface)*
 
 <hr />
 
