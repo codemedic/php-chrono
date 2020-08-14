@@ -11,6 +11,12 @@ use RedMatter\Chrono\Clock\ClockInterface;
 use RedMatter\Chrono\Duration\Seconds;
 use RedMatter\Chrono\Time\CalendarTime;
 
+/**
+ * Models a clock that
+ * - plays a music at the 0-th minute of every hour
+ * - Cuckoos N times at the 0th minute of the N-th hour
+ * - Cuckoos once every 15 minutes, except at the 0th minute
+ */
 class CuckooClock
 {
     /** @var ClockInterface */
