@@ -12,6 +12,11 @@ use RedMatter\Chrono\Duration\Unit;
 use RedMatter\Chrono\Time\Time;
 use RuntimeException;
 
+/**
+ * Mock Clock that provides `\RedMatter\Chrono\ClockInterface`.
+ *
+ * @see \RedMatter\Examples\CuckooClockTest
+ */
 class Clock implements ClockInterface
 {
     private $time = 0;
@@ -23,7 +28,7 @@ class Clock implements ClockInterface
      */
     public function setTime(Time $time)
     {
-        $this->time = (float)$time->secondsSinceEpoch();
+        $this->time = (float)$time->secondsSinceEpoch()->value(Unit::NANOSECONDS);
     }
 
     /**
@@ -37,7 +42,14 @@ class Clock implements ClockInterface
     }
 
     /**
-     * @inheritDoc
+     * @see ClockInterface::elapse()
+     *
+     * <p>
+     * NOTE: The mock version would always return true.
+     *
+     * @param Duration $duration
+     *
+     * @return bool
      */
     public function elapse(Duration $duration)
     {
@@ -52,7 +64,9 @@ class Clock implements ClockInterface
     }
 
     /**
-     * @inheritDoc
+     * @see ClockInterface::now()
+     *
+     * @return Time
      */
     public function now()
     {

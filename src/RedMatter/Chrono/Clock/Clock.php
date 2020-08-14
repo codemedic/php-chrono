@@ -7,6 +7,9 @@ namespace RedMatter\Chrono\Clock;
 
 use RedMatter\Chrono\Time\Time;
 
+/**
+ * Wraps `\microtime` to get calendar time.
+ */
 class Clock implements ClockInterface
 {
     use SleepableClockTrait;

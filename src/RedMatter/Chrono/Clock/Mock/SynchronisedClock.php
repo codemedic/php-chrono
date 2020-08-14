@@ -6,6 +6,7 @@
 namespace RedMatter\Chrono\Clock\Mock;
 
 use DateTime;
+use RedMatter\Chrono\Clock\SynchronisedClockInterface;
 use RedMatter\Chrono\Duration\Duration;
 use RedMatter\Chrono\Time\SteadyTime;
 use RedMatter\Chrono\Time\Time;
@@ -13,7 +14,7 @@ use RedMatter\Chrono\Time\Time;
 /**
  * A utility class to keep the two clocks in sync.
  */
-class SynchronisedClocks
+class SynchronisedClock implements SynchronisedClockInterface
 {
     /** @var Clock */
     private $mockClock;
@@ -21,7 +22,7 @@ class SynchronisedClocks
     private $mockSteadyClock;
 
     /**
-     * Construct clocks synchronised to NOW. It adjusts the wall-clock to the specified startTime.
+     * Construct clocks, optionally set to a specific time.
      *
      * @param DateTime|null $startTime
      */
@@ -37,20 +38,7 @@ class SynchronisedClocks
     }
 
     /**
-     * Synchronise the steady-clock to wall-clock. Use this in combination with startTime argument for the constructor.
-     *
-     * NOTE: Accuracy will be affected by the PHP version; php >= 7.3 preferred
-     */
-    public function syncSteadyClock()
-    {
-        $now = $this->mockClock->now();
-        $this->mockSteadyClock->setTime(
-            SteadyTime::fromTime($now)
-        );
-    }
-
-    /**
-     * Get time from the steady-clock
+     * @see \RedMatter\Chrono\Clock\SynchronisedClockInterface::getSteadyTime()
      *
      * @return SteadyTime
      */
@@ -60,7 +48,7 @@ class SynchronisedClocks
     }
 
     /**
-     * Get time from the wall-clock
+     * @see \RedMatter\Chrono\Clock\SynchronisedClockInterface::getTime()
      *
      * @return Time
      */
@@ -70,30 +58,41 @@ class SynchronisedClocks
     }
 
     /**
-     * Elapse the two clocks by specified duration
+     * @see \RedMatter\Chrono\Clock\SynchronisedClockInterface::elapse()
+     * <p>
+     * NOTE: The mock version would always return true.
      *
      * @param Duration $duration
+     *
+     * @return bool
      */
     public function elapse(Duration $duration)
     {
         $this->mockClock->elapse($duration);
         $this->mockSteadyClock->elapse($duration);
+
+        return true;
     }
 
     /**
-     * Perform f and adjust both clocks by the time it took to perform it.
-     *
-     * NOTE: Accuracy will be affected by the PHP version; php >= 7.3 preferred
+     * @see \RedMatter\Chrono\Clock\SynchronisedClockInterface::perform()
      *
      * @param callable $f
+     * @param Duration|null $d
+     *
+     * @return mixed
      */
-    public function perform(callable $f)
+    public function perform(callable $f, Duration &$d = null)
     {
-        $clock = new SteadyClock();
+        $clock = new \RedMatter\Chrono\Clock\SteadyClock();
         $startTime = $clock->now();
 
-        $f();
+        $ret = $f();
 
-        $this->elapse($clock->now()->diff($startTime));
+        $d = $clock->now()->diff($startTime);
+
+        $this->elapse($d);
+
+        return $ret;
     }
 }

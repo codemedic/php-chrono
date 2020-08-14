@@ -10,7 +10,7 @@ use RedMatter\Chrono\Duration\MicroSeconds;
 use RedMatter\Chrono\Duration\MilliSeconds;
 use RedMatter\Chrono\Duration\Seconds;
 
-class ClockTest extends TestCase
+class SteadyClockTest extends TestCase
 {
     public function testSteadyClock()
     {

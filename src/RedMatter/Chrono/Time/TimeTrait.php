@@ -63,6 +63,47 @@ trait TimeTrait
     /**
      * @inheritDoc
      */
+    public function before(Duration $duration)
+    {
+        $ret = clone $this;
+        $ret->sinceEpoch = $this->sinceEpoch->subtract($duration);
+
+        return $ret;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function isAfter(TimeInterface $other)
+    {
+        if (!$other instanceof static) {
+            return false;
+        }
+
+        return 1 === $this->secondsSinceEpoch()
+                ->compare(
+                    $other->secondsSinceEpoch()
+                );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function isBefore(TimeInterface $other)
+    {
+        if (!$other instanceof static) {
+            return false;
+        }
+
+        return -1 === $this->secondsSinceEpoch()
+                ->compare(
+                    $other->secondsSinceEpoch()
+                );
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function isEqual(TimeInterface $other)
     {
         if (!$other instanceof static) {

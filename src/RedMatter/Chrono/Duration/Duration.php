@@ -7,6 +7,9 @@ namespace RedMatter\Chrono\Duration;
 
 use DivisionByZeroError;
 
+/**
+ * Models time-duration and facilitates its manipulation and comparison.
+ */
 class Duration
 {
     const UNIT = Unit::UNKNOWN;
@@ -19,8 +22,8 @@ class Duration
     /**
      * Duration constructor.
      *
-     * @param float $value
-     * @param float $unit
+     * @param float $value decimal value
+     * @param float $unit Unit constant or a custom unit (e.g: Unit::SECONDS / 10 for one-tenth of a second)
      */
     public function __construct($value, $unit)
     {
@@ -57,13 +60,18 @@ class Duration
     }
 
     /**
-     * Is a null or zero duration?
+     * Is a zero duration?
      *
      * @return bool
      */
     public function isZero()
     {
-        return (float)$this->value === 0.0;
+        static $zero;
+        if ($zero === null) {
+            $zero = new NanoSeconds(0);
+        }
+
+        return $zero->isEqual($this);
     }
 
     /**
@@ -91,7 +99,7 @@ class Duration
     }
 
     /**
-     * Slice $this into $count intervals and get one.
+     * Slice $this into $count equal intervals and get one.
      *
      * @param int|float $count
      *
@@ -139,7 +147,7 @@ class Duration
      *
      * @param Duration $other
      *
-     * @return $this
+     * @return static
      */
     public function modulo(Duration $other)
     {
@@ -168,9 +176,25 @@ class Duration
     }
 
     /**
+     * Use sprintf to convert to decimal value; the default stringification of float would prefer the 'E'
+     * format for numbers too big or small. The E format is not compatible with bccomp.
+     *
+     * @param Duration $duration
+     *
+     * @return string
+     */
+    private static function toNanosecondsString(Duration $duration)
+    {
+        return sprintf("%1.06f", $duration->value(Unit::NANOSECONDS));
+    }
+
+    /**
      * Compare $this against $other and return an integer. The return value will be
+     * <p>
      *    < 0 if $this is smaller than $other
+     * <p>
      *      0 if $this is equal to $other
+     * <p>
      *    > 0 if $this is bigger than $other
      *
      * @param Duration $other
@@ -179,7 +203,13 @@ class Duration
      */
     public function compare(Duration $other)
     {
-        return bccomp($this->value(Unit::NANOSECONDS), $other->value(Unit::NANOSECONDS));
+        // In effect we are comparing.
+        //   $this->value(Unit::NANOSECONDS)
+        //   and
+        //   $other->value(Unit::NANOSECONDS)
+        //
+        // We have to use bccomp since PHP acts strange when comparing float numbers.
+        return bccomp(self::toNanosecondsString($this), self::toNanosecondsString($other), 10);
     }
 
     /**
@@ -190,8 +220,8 @@ class Duration
      * @return Duration|static
      *
      * @example
-     *     $d1 = new Seconds(10);
-     *     $d2 = MicroSeconds::createFrom($d1);
+     * $d1 = new Seconds(10);
+     * $d2 = MicroSeconds::createFrom($d1);
      */
     public static function createFrom(Duration $other)
     {
@@ -203,5 +233,24 @@ class Duration
         }
 
         return new static($other->value($unit), $unit);
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        if (static::UNIT === Unit::UNKNOWN) {
+            // see if it matches a standard unit
+            $unit = Unit::toString($this->unit, $this->value !== 1.0);
+            // if not, we need to make a custom unit
+            if ($unit === null) {
+                $unit = Unit::customUnitToString($this->unit);
+            }
+        } else {
+            $unit = Unit::toString(static::UNIT, $this->value !== 1.0);
+        }
+
+        return "{$this->value} {$unit}";
     }
 }

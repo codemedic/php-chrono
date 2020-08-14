@@ -6,17 +6,20 @@
 namespace RedMatter\Chrono\Time;
 
 use DateTime;
+use DateTimeZone;
 use RedMatter\Chrono\Clock\Clock;
 use RedMatter\Chrono\Clock\SteadyClock;
 
-class Time implements CalendarTimeInterface
+class Time implements TimeInterface, CalendarTimeInterface
 {
     use TimeTrait;
     use CalendarTimeTrait;
 
+    const DEFAULT_FORMAT = 'Y-m-d\TH:i:s.uP';
+
     /**
-     * Convert SteadyTime to Time
-     *
+     * Convert monotonic-time to calendar-time
+     * <p>
      * NOTE: Accuracy will be affected by the PHP version; php >= 7.3 preferred
      *
      * @param SteadyTime $t
@@ -35,7 +38,7 @@ class Time implements CalendarTimeInterface
     }
 
     /**
-     * Convert DateTime to Time
+     * Convert DateTime to calendar-time.
      *
      * @param DateTime $time
      *
@@ -46,5 +49,26 @@ class Time implements CalendarTimeInterface
         $sinceEpoch = $time->format('U.u');
 
         return new self((float)$sinceEpoch);
+    }
+
+    /**
+     * Format time using DateTime::format
+     *
+     * @param string $fmt
+     * @param DateTimeZone|null $timeZone
+     *
+     * @return string
+     */
+    public function format($fmt = self::DEFAULT_FORMAT, DateTimeZone $timeZone = null)
+    {
+        return $this->getDateTime($timeZone)->format($fmt);
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->format();
     }
 }

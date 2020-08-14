@@ -6,18 +6,19 @@
 namespace RedMatter\Chrono\Clock;
 
 use RedMatter\Chrono\Duration\Duration;
-use RedMatter\Chrono\Time\Time;
+use RedMatter\Chrono\Time\SteadyTime;
 
-interface ClockInterface
+interface SteadyClockInterface
 {
     /**
-     * Get current calendar-time.
+     * Get current monotonic-time.
      * <p>
-     * Time readings returned are subject to changes for clock synchronization.
-     * Difference between two values obtained after a specific duration need not be
-     * the same at all times.
+     * When used with PHP 7.3 or later, the time readings returned are free from changes
+     * due to clock synchronization. Even though older versions of PHP, which uses
+     * `microtime` under the hood, are affected by clock synchronization, it is still
+     * the best available option.
      *
-     * @return Time
+     * @return SteadyTime
      */
     public function now();
 

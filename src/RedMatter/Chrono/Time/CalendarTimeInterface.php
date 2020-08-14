@@ -8,10 +8,12 @@ namespace RedMatter\Chrono\Time;
 use DateTime;
 use DateTimeZone;
 
-interface CalendarTimeInterface extends TimeInterface
+interface CalendarTimeInterface
 {
     /**
      * Get DateTime
+     *
+     * If no timezone is specified, it is set to '+00:00'.
      *
      * @param DateTimeZone|null $timeZone
      *

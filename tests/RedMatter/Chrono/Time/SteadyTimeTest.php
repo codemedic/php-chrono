@@ -28,4 +28,21 @@ class SteadyTimeTest extends TestCase
             0.0005 // for php < 7.3
         );
     }
+
+    /**
+     * @dataProvider providesTestToStringData
+     * @param SteadyTime $time
+     * @param $str
+     */
+    public function testToString(SteadyTime $time, $str)
+    {
+        self::assertEquals($str, (string)$time);
+    }
+
+    public function providesTestToStringData()
+    {
+        return [
+            [new SteadyTime(1.0), '1000000000 ns since epoch'],
+        ];
+    }
 }

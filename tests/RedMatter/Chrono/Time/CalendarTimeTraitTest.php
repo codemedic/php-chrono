@@ -5,6 +5,7 @@
 
 namespace RedMatter\Chrono\Time;
 
+use DateTimeZone;
 use PHPUnit\Framework\TestCase;
 use RedMatter\Chrono\Duration\Seconds;
 
@@ -15,13 +16,19 @@ class CalendarTimeTraitTest extends TestCase
      *
      * @param           $secondsSinceEpoch
      */
-    public function testGetDateTime($secondsSinceEpoch)
+    public function testGetDateTime($secondsSinceEpoch, $timezone = null)
     {
         $mock = $this->getMockForTrait('RedMatter\Chrono\Time\CalendarTimeTrait');
         $mock->method('secondsSinceEpoch')
             ->willReturn(new Seconds($secondsSinceEpoch));
 
-        $got = $mock->getDateTime();
+        if ($timezone === null) {
+            $got = $mock->getDateTime();
+            self::assertEquals('+00:00', $got->getTimezone()->getName());
+        } else {
+            $got = $mock->getDateTime(new DateTimeZone($timezone));
+            self::assertEquals($timezone, $got->getTimezone()->getName());
+        }
 
         self::assertEquals($secondsSinceEpoch, $got->format('U.u'), '', 0.05);
     }
@@ -47,7 +54,7 @@ class CalendarTimeTraitTest extends TestCase
             [0],
             [1000],
             [1.1],
-            [microtime(true)]
+            [microtime(true), 'Asia/Kolkata']
         ];
     }
 }

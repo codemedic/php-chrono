@@ -18,6 +18,8 @@ interface TimeInterface
     public function secondsSinceEpoch();
 
     /**
+     * Get time that is after $this by $duration
+     *
      * @param Duration $duration
      *
      * @return static
@@ -25,13 +27,31 @@ interface TimeInterface
     public function after(Duration $duration);
 
     /**
-     * Get difference between times
+     * Get time that is before $this by $duration
+     *
+     * @param Duration $duration
+     *
+     * @return static
+     */
+    public function before(Duration $duration);
+
+    /**
+     * Check if $this falls after $other.
      *
      * @param TimeInterface $other
      *
-     * @return Duration
+     * @return bool
      */
-    public function diff(TimeInterface $other);
+    public function isAfter(TimeInterface $other);
+
+    /**
+     * Check if $this falls before $other.
+     *
+     * @param TimeInterface $other
+     *
+     * @return bool
+     */
+    public function isBefore(TimeInterface $other);
 
     /**
      * Check if $other time is equal to $this; if they differ in type, it will be false.
@@ -41,4 +61,13 @@ interface TimeInterface
      * @return bool
      */
     public function isEqual(TimeInterface $other);
+
+    /**
+     * Get difference between times
+     *
+     * @param TimeInterface $other
+     *
+     * @return Duration
+     */
+    public function diff(TimeInterface $other);
 }

@@ -6,7 +6,8 @@
 namespace RedMatter\Chrono\Clock;
 
 use PHPUnit\Framework\TestCase;
-use RedMatter\Chrono\Clock\Mock\SteadyClock;
+use RedMatter\Chrono\Clock\Mock\SteadyClock as MockSteadyClock;
+use RedMatter\Chrono\Clock\Mock\Clock as MockClock;
 use RedMatter\Chrono\Duration\Seconds;
 
 class ClockTest extends TestCase
@@ -14,9 +15,9 @@ class ClockTest extends TestCase
     /**
      * @dataProvider providesClock
      *
-     * @param ClockInterface $clock
+     * @param ClockInterface|SteadyClockInterface $clock
      */
-    public function testTime(ClockInterface $clock)
+    public function testTime($clock)
     {
         $t1 = $clock->now()->secondsSinceEpoch()->value();
         $clock->elapse(new Seconds(0.1));
@@ -28,8 +29,9 @@ class ClockTest extends TestCase
     {
         return [
             [new Clock()],
+            [new MockClock()],
             [new SteadyClock()],
-            [new SteadyClock()],
+            [new MockSteadyClock()],
         ];
     }
 }

@@ -24,18 +24,26 @@ trait CalendarTimeTrait
      */
     public function getDateTime(DateTimeZone $timeZone = null)
     {
+        static $defaultTz;
+
         $sinceEpoch = $this->secondsSinceEpoch();
         // ensure decimal number
         $strSinceEpoch = sprintf('%0.1f', $sinceEpoch->value());
-        if ($timeZone !== null) {
-            $ret = DateTime::createFromFormat('U.u', $strSinceEpoch, $timeZone);
-        } else {
-            $ret = DateTime::createFromFormat('U.u', $strSinceEpoch);
-        }
-
+        $ret = DateTime::createFromFormat('U.u', $strSinceEpoch);
         if ($ret === false) {
             throw new RuntimeException("Failed to convert to DateTime");
         }
+
+        // explicitly set the default behaviour
+        if ($timeZone === null) {
+            if (!$defaultTz) {
+                $defaultTz = new DateTimeZone('+00:00');
+            }
+
+            $timeZone = $defaultTz;
+        }
+
+        $ret->setTimezone($timeZone);
 
         return $ret;
     }
