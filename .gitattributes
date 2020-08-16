@@ -1,0 +1,6 @@
+/docs export-ignore
+/tests export-ignore
+/examples export-ignore
+/scripts export-ignore
+/phpunit.xml.dist export-ignore
+/.git* export-ignore
