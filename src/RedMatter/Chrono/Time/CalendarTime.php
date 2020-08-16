@@ -7,8 +7,10 @@ namespace RedMatter\Chrono\Time;
 
 use DateTime;
 use DateTimeZone;
+use Exception;
 use RedMatter\Chrono\Clock\CalendarClock;
 use RedMatter\Chrono\Clock\SteadyClock;
+use RuntimeException;
 
 class CalendarTime implements TimeInterface, CalendarTimeInterface
 {
@@ -58,6 +60,7 @@ class CalendarTime implements TimeInterface, CalendarTimeInterface
      * @param DateTimeZone|null $timeZone
      *
      * @return string
+     * @throws RuntimeException
      */
     public function format($fmt = self::DEFAULT_FORMAT, DateTimeZone $timeZone = null)
     {
@@ -69,6 +72,10 @@ class CalendarTime implements TimeInterface, CalendarTimeInterface
      */
     public function __toString()
     {
-        return $this->format();
+        try {
+            return $this->format();
+        } catch (Exception $e) {
+            return "{$this->secondsSinceEpoch()} since epoch";
+        }
     }
 }

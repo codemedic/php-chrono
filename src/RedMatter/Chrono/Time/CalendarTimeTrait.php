@@ -7,6 +7,7 @@ namespace RedMatter\Chrono\Time;
 
 use DateTime;
 use DateTimeZone;
+use Exception;
 use RedMatter\Chrono\Duration\Seconds;
 use RuntimeException;
 
@@ -29,9 +30,13 @@ trait CalendarTimeTrait
         $sinceEpoch = $this->secondsSinceEpoch();
         // ensure decimal number
         $strSinceEpoch = sprintf('%0.6f', $sinceEpoch->value());
-        $ret = DateTime::createFromFormat('U.u', $strSinceEpoch);
-        if ($ret === false) {
-            throw new RuntimeException("Failed to convert to DateTime");
+        try {
+            $ret = DateTime::createFromFormat('U.u', $strSinceEpoch);
+            if ($ret === false) {
+                $ret = new DateTime('@' . (int)$strSinceEpoch);
+            }
+        } catch (Exception $e) {
+            throw new RuntimeException("Failed to convert to DateTime", 0, $e);
         }
 
         // explicitly set the default behaviour
