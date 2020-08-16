@@ -13,8 +13,8 @@ interface CalendarTimeInterface
 {
     /**
      * Get DateTime
-     *
-     * If no timezone is specified, it is set to '+00:00'.
+     * <p>
+     * If no timezone is specified, it is set to '+00:00' except for PHP < 5.5.10. For PHP < 5.5.10 it is set to 'UTC'.
      *
      * @param DateTimeZone|null $timeZone
      *

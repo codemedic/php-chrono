@@ -13,8 +13,10 @@ class CalendarTimeTraitTest extends TestCase
 {
     /**
      * @dataProvider providesData
+     * @requires     PHP >= 5.5.10
      *
-     * @param           $secondsSinceEpoch
+     * @param             $secondsSinceEpoch
+     * @param string|null $timezone
      */
     public function testGetDateTime($secondsSinceEpoch, $timezone = null)
     {
@@ -25,6 +27,30 @@ class CalendarTimeTraitTest extends TestCase
         if ($timezone === null) {
             $got = $mock->getDateTime();
             self::assertEquals('+00:00', $got->getTimezone()->getName());
+        } else {
+            $got = $mock->getDateTime(new DateTimeZone($timezone));
+            self::assertEquals($timezone, $got->getTimezone()->getName());
+        }
+
+        self::assertEquals($secondsSinceEpoch, $got->format('U.u'), '', 0.05);
+    }
+
+    /**
+     * @dataProvider providesDataAlt
+     * @requires     PHP < 5.5.10
+     *
+     * @param             $secondsSinceEpoch
+     * @param string|null $timezone
+     */
+    public function testGetDateTimeAlt($secondsSinceEpoch, $timezone = null)
+    {
+        $mock = $this->getMockForTrait('RedMatter\Chrono\Time\CalendarTimeTrait');
+        $mock->method('secondsSinceEpoch')
+            ->willReturn(new Seconds($secondsSinceEpoch));
+
+        if ($timezone === null) {
+            $got = $mock->getDateTime();
+            self::assertEquals('UTC', $got->getTimezone()->getName());
         } else {
             $got = $mock->getDateTime(new DateTimeZone($timezone));
             self::assertEquals($timezone, $got->getTimezone()->getName());
@@ -49,6 +75,16 @@ class CalendarTimeTraitTest extends TestCase
     }
 
     public function providesData()
+    {
+        return [
+            [0],
+            [1000],
+            [1.1],
+            [microtime(true), 'Asia/Kolkata']
+        ];
+    }
+
+    public function providesDataAlt()
     {
         return [
             [0],
