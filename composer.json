@@ -9,7 +9,7 @@
     "ext-bcmath": "*"
   },
   "require-dev": {
-    "phpunit/phpunit": "*",
+    "phpunit/phpunit": "^4",
     "symfony/polyfill-php72": "^1.18",
     "victorjonsson/markdowndocs": "^1.3"
   },
