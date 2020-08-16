@@ -27,18 +27,6 @@ trait CalendarTimeTrait
     {
         static $defaultTz;
 
-        $sinceEpoch = $this->secondsSinceEpoch();
-        // ensure decimal number
-        $strSinceEpoch = sprintf('%0.6f', $sinceEpoch->value());
-        try {
-            $ret = DateTime::createFromFormat('U.u', $strSinceEpoch);
-            if ($ret === false) {
-                $ret = new DateTime('@' . (int)$strSinceEpoch);
-            }
-        } catch (Exception $e) {
-            throw new RuntimeException("Failed to convert to DateTime", 0, $e);
-        }
-
         // explicitly set the default behaviour
         if ($timeZone === null) {
             if (!$defaultTz) {
@@ -48,6 +36,19 @@ trait CalendarTimeTrait
             $timeZone = $defaultTz;
         }
 
+        $sinceEpoch = $this->secondsSinceEpoch();
+        // ensure decimal number
+        $strSinceEpoch = sprintf('%0.6f', $sinceEpoch->value());
+        try {
+            $ret = DateTime::createFromFormat('U.u', $strSinceEpoch, $timeZone);
+            if ($ret === false) {
+                $ret = new DateTime('@' . (int)$strSinceEpoch, $timeZone);
+            }
+        } catch (Exception $e) {
+            throw new RuntimeException("Failed to convert to DateTime", 0, $e);
+        }
+
+        // workaround for ignored $timeZone when parsing UnixTime
         $ret->setTimezone($timeZone);
 
         return $ret;
