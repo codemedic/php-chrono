@@ -303,7 +303,7 @@ $d2 = MicroSeconds::createFrom($d1);
 | public | <strong>format(</strong><em>string</em> <strong>$fmt=`'Y-m-d\TH:i:s.uP'`</strong>, <em>\RedMatter\Chrono\Time\DateTimeZone/null/[\DateTimeZone](http://php.net/manual/en/class.datetimezone.php)</em> <strong>$timeZone=null</strong>)</strong> : <em>string</em><br /><em>Format time using DateTime::format</em> |
 | public static | <strong>fromDateTime(</strong><em>[\DateTime](http://php.net/manual/en/class.datetime.php)</em> <strong>$time</strong>)</strong> : <em>[\RedMatter\Chrono\Time\CalendarTime](#class-redmatterchronotimecalendartime)</em><br /><em>Convert DateTime to calendar-time.</em> |
 | public static | <strong>fromSteadyTime(</strong><em>[\RedMatter\Chrono\Time\SteadyTime](#class-redmatterchronotimesteadytime)</em> <strong>$t</strong>)</strong> : <em>[\RedMatter\Chrono\Time\CalendarTime](#class-redmatterchronotimecalendartime)</em><br /><em>Convert monotonic-time to calendar-time <p> NOTE: Accuracy will be affected by the PHP version; php >= 7.3 preferred</em> |
-| public | <strong>getDateTime(</strong><em>\RedMatter\Chrono\Time\DateTimeZone/null/[\DateTimeZone](http://php.net/manual/en/class.datetimezone.php)</em> <strong>$timeZone=null</strong>)</strong> : <em>\RedMatter\Chrono\Time\DateTime</em><br /><em>Get DateTime If no timezone is specified, it is set to '+00:00'.</em> |
+| public | <strong>getDateTime(</strong><em>\RedMatter\Chrono\Time\DateTimeZone/null/[\DateTimeZone](http://php.net/manual/en/class.datetimezone.php)</em> <strong>$timeZone=null</strong>)</strong> : <em>\RedMatter\Chrono\Time\DateTime</em><br /><em>Get DateTime <p> If no timezone is specified, it is set to '+00:00' except for PHP < 5.5.10. For PHP < 5.5.10 it is set to 'UTC'.</em> |
 | public | <strong>getUnixTime(</strong><em>bool</em> <strong>$float=false</strong>)</strong> : <em>int/float</em><br /><em>Get unixtime</em> |
 | public | <strong>isAfter(</strong><em>[\RedMatter\Chrono\Time\TimeInterface](#interface-redmatterchronotimetimeinterface)</em> <strong>$other</strong>)</strong> : <em>bool</em><br /><em>Check if $this falls after $other.</em> |
 | public | <strong>isBefore(</strong><em>[\RedMatter\Chrono\Time\TimeInterface](#interface-redmatterchronotimetimeinterface)</em> <strong>$other</strong>)</strong> : <em>bool</em><br /><em>Check if $this falls before $other.</em> |
@@ -319,7 +319,7 @@ $d2 = MicroSeconds::createFrom($d1);
 
 | Visibility | Function |
 |:-----------|:---------|
-| public | <strong>getDateTime(</strong><em>\RedMatter\Chrono\Time\DateTimeZone/null/[\DateTimeZone](http://php.net/manual/en/class.datetimezone.php)</em> <strong>$timeZone=null</strong>)</strong> : <em>\RedMatter\Chrono\Time\DateTime</em><br /><em>Get DateTime If no timezone is specified, it is set to '+00:00'.</em> |
+| public | <strong>getDateTime(</strong><em>\RedMatter\Chrono\Time\DateTimeZone/null/[\DateTimeZone](http://php.net/manual/en/class.datetimezone.php)</em> <strong>$timeZone=null</strong>)</strong> : <em>\RedMatter\Chrono\Time\DateTime</em><br /><em>Get DateTime <p> If no timezone is specified, it is set to '+00:00' except for PHP < 5.5.10. For PHP < 5.5.10 it is set to 'UTC'.</em> |
 | public | <strong>getUnixTime(</strong><em>bool</em> <strong>$float=false</strong>)</strong> : <em>int/float</em><br /><em>Get unixtime</em> |
 
 <hr />
