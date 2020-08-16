@@ -13,7 +13,7 @@ class CalendarTimeTraitTest extends TestCase
 {
     /**
      * @dataProvider providesData
-     * @requires     PHP >= 5.5.10
+     * @requires     PHP 5.5.10
      *
      * @param             $secondsSinceEpoch
      * @param string|null $timezone
@@ -37,13 +37,17 @@ class CalendarTimeTraitTest extends TestCase
 
     /**
      * @dataProvider providesDataAlt
-     * @requires     PHP < 5.5.10
      *
      * @param             $secondsSinceEpoch
      * @param string|null $timezone
      */
     public function testGetDateTimeAlt($secondsSinceEpoch, $timezone = null)
     {
+        // This test is valid only for PHP < 5.5.10
+        if (PHP_VERSION_ID >= 50510) {
+            self::markTestSkipped();
+        }
+
         $mock = $this->getMockForTrait('RedMatter\Chrono\Time\CalendarTimeTrait');
         $mock->method('secondsSinceEpoch')
             ->willReturn(new Seconds($secondsSinceEpoch));
