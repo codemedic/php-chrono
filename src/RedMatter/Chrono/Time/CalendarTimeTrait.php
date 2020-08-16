@@ -30,7 +30,11 @@ trait CalendarTimeTrait
         // explicitly set the default behaviour
         if ($timeZone === null) {
             if (!$defaultTz) {
-                $defaultTz = new DateTimeZone('+00:00');
+                try {
+                    $defaultTz = new DateTimeZone('+00:00');
+                } catch (Exception $e) {
+                    $defaultTz = new DateTimeZone('UTC');
+                }
             }
 
             $timeZone = $defaultTz;
