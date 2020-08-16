@@ -31,7 +31,7 @@ matrix:
       env: COMPOSER_ARGS=--ignore-platform-reqs
 
 before_script:
-  - composer self-update --snapshot
+  - composer self-update --stable
   - if [ "$deps" == "low" ]; then composer update -n --prefer-dist --prefer-lowest --prefer-stable $COMPOSER_ARGS; fi
   - if [ "$deps" != "low" ]; then composer update -n --prefer-dist $COMPOSER_ARGS; fi
 
