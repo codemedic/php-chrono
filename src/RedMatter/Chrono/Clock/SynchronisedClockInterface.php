@@ -20,7 +20,7 @@ interface SynchronisedClockInterface
      *
      * @return CalendarTime
      */
-    public function getTime();
+    public function getCalendarTime();
 
     /**
      * Get time from the embedded SteadyClock.

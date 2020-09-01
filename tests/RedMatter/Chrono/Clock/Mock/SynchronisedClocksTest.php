@@ -16,11 +16,11 @@ class SynchronisedClocksTest extends TestCase
     {
         $now = new DateTime('now');
         $sc1 = new SynchronisedClock();
-        $t1 = $sc1->getTime();
+        $t1 = $sc1->getCalendarTime();
         $st1 = $sc1->getSteadyTime();
 
         $sc2 = new SynchronisedClock($now);
-        $t2 = $sc2->getTime();
+        $t2 = $sc2->getCalendarTime();
         $st2 = $sc2->getSteadyTime();
 
         self::assertFalse($t2->isEqual($t1));
@@ -33,12 +33,12 @@ class SynchronisedClocksTest extends TestCase
     public function testElapse()
     {
         $sc = new SynchronisedClock();
-        $t1 = $sc->getTime();
+        $t1 = $sc->getCalendarTime();
         $st1 = $sc->getSteadyTime();
 
         $sc->elapse(new MilliSeconds(100));
 
-        $t2 = $sc->getTime();
+        $t2 = $sc->getCalendarTime();
         $st2 = $sc->getSteadyTime();
 
         self::assertEquals($st2->diff($st1), $t2->diff($t1));
@@ -54,10 +54,10 @@ class SynchronisedClocksTest extends TestCase
 
         $sc = new SynchronisedClock();
         $sc->perform($f);
-        $t1 = $sc->getTime();
+        $t1 = $sc->getCalendarTime();
         $st1 = $sc->getSteadyTime();
         $sc->perform($f, $d);
-        $t2 = $sc->getTime();
+        $t2 = $sc->getCalendarTime();
         $st2 = $sc->getSteadyTime();
 
         self::assertGreaterThan($nanoSleep, $d->value(Unit::NANOSECONDS));
@@ -74,10 +74,10 @@ class SynchronisedClocksTest extends TestCase
 
         $realSc = new \RedMatter\Chrono\Clock\SynchronisedClock();
         $realSc->perform($f);
-        $t1 = $realSc->getTime();
+        $t1 = $realSc->getCalendarTime();
         $st1 = $realSc->getSteadyTime();
         $realSc->perform($f, $d);
-        $t2 = $realSc->getTime();
+        $t2 = $realSc->getCalendarTime();
         $st2 = $realSc->getSteadyTime();
 
         self::assertGreaterThan($nanoSleep, $d->value(Unit::NANOSECONDS));

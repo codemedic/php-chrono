@@ -28,7 +28,7 @@ class SynchronisedClock implements SynchronisedClockInterface
     /**
      * @inheritDoc
      */
-    public function getTime()
+    public function getCalendarTime()
     {
         return $this->clock->now();
     }

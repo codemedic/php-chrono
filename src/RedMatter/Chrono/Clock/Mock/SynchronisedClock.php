@@ -49,10 +49,10 @@ class SynchronisedClock implements SynchronisedClockInterface
 
     /**
      * @return CalendarTime
-     *@see \RedMatter\Chrono\Clock\SynchronisedClockInterface::getTime()
+     *@see \RedMatter\Chrono\Clock\SynchronisedClockInterface::getCalendarTime()
      *
      */
-    public function getTime()
+    public function getCalendarTime()
     {
         return $this->mockClock->now();
     }
