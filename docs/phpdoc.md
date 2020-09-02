@@ -43,8 +43,8 @@
 | Visibility | Function |
 |:-----------|:---------|
 | public | <strong>elapse(</strong><em>[\RedMatter\Chrono\Duration\Duration](#class-redmatterchronodurationduration)</em> <strong>$duration</strong>)</strong> : <em>bool</em><br /><em>When the function returns, the clock would have elapsed by the specified duration. <p> Returns false on failure or interruptions; otherwise true.</em> |
+| public | <strong>getCalendarTime()</strong> : <em>[\RedMatter\Chrono\Time\CalendarTime](#class-redmatterchronotimecalendartime)</em><br /><em>Get time from the embedded Clock.</em> |
 | public | <strong>getSteadyTime()</strong> : <em>[\RedMatter\Chrono\Time\SteadyTime](#class-redmatterchronotimesteadytime)</em><br /><em>Get time from the embedded SteadyClock.</em> |
-| public | <strong>getTime()</strong> : <em>[\RedMatter\Chrono\Time\CalendarTime](#class-redmatterchronotimecalendartime)</em><br /><em>Get time from the embedded Clock.</em> |
 | public | <strong>perform(</strong><em>\callable</em> <strong>$f</strong>, <em>\RedMatter\Chrono\Clock\Duration/null</em> <strong>$d=null</strong>)</strong> : <em>mixed</em><br /><em>Perform $f <p> When the function returns, the clock would have elapsed by the duration it took for $f to finish. <p> NOTE: This is meant for time sensitive use cases (from unit-testing perspective) where both the clocks should absolutely be in sync. <p> Returns the return value from $f</em> |
 
 <hr />
@@ -86,8 +86,8 @@
 |:-----------|:---------|
 | public | <strong>__construct()</strong> : <em>void</em> |
 | public | <strong>elapse(</strong><em>[\RedMatter\Chrono\Duration\Duration](#class-redmatterchronodurationduration)</em> <strong>$duration</strong>)</strong> : <em>bool</em><br /><em>When the function returns, the clock would have elapsed by the specified duration. <p> Returns false on failure or interruptions; otherwise true.</em> |
+| public | <strong>getCalendarTime()</strong> : <em>[\RedMatter\Chrono\Time\CalendarTime](#class-redmatterchronotimecalendartime)</em><br /><em>Get time from the embedded Clock.</em> |
 | public | <strong>getSteadyTime()</strong> : <em>[\RedMatter\Chrono\Time\SteadyTime](#class-redmatterchronotimesteadytime)</em><br /><em>Get time from the embedded SteadyClock.</em> |
-| public | <strong>getTime()</strong> : <em>[\RedMatter\Chrono\Time\CalendarTime](#class-redmatterchronotimecalendartime)</em><br /><em>Get time from the embedded Clock.</em> |
 | public | <strong>perform(</strong><em>\callable</em> <strong>$f</strong>, <em>\RedMatter\Chrono\Clock\Duration/null</em> <strong>$d=null</strong>)</strong> : <em>mixed</em><br /><em>Perform $f <p> When the function returns, the clock would have elapsed by the duration it took for $f to finish. <p> NOTE: This is meant for time sensitive use cases (from unit-testing perspective) where both the clocks should absolutely be in sync. <p> Returns the return value from $f</em> |
 
 *This class implements [\RedMatter\Chrono\Clock\SynchronisedClockInterface](#interface-redmatterchronoclocksynchronisedclockinterface)*
@@ -144,8 +144,8 @@
 |:-----------|:---------|
 | public | <strong>__construct(</strong><em>\RedMatter\Chrono\Clock\Mock\DateTime/null/[\DateTime](http://php.net/manual/en/class.datetime.php)</em> <strong>$startTime=null</strong>)</strong> : <em>void</em><br /><em>Construct clocks, optionally set to a specific time.</em> |
 | public | <strong>elapse(</strong><em>[\RedMatter\Chrono\Duration\Duration](#class-redmatterchronodurationduration)</em> <strong>$duration</strong>)</strong> : <em>bool</em> |
+| public | <strong>getCalendarTime()</strong> : <em>[\RedMatter\Chrono\Time\CalendarTime](#class-redmatterchronotimecalendartime)</em> |
 | public | <strong>getSteadyTime()</strong> : <em>[\RedMatter\Chrono\Time\SteadyTime](#class-redmatterchronotimesteadytime)</em> |
-| public | <strong>getTime()</strong> : <em>[\RedMatter\Chrono\Time\CalendarTime](#class-redmatterchronotimecalendartime)</em> |
 | public | <strong>perform(</strong><em>\callable</em> <strong>$f</strong>, <em>\RedMatter\Chrono\Clock\Mock\Duration/null</em> <strong>$d=null</strong>)</strong> : <em>mixed</em> |
 
 *This class implements [\RedMatter\Chrono\Clock\SynchronisedClockInterface](#interface-redmatterchronoclocksynchronisedclockinterface)*
@@ -202,6 +202,13 @@
 
 > Models time-duration and facilitates its manipulation and comparison.
 
+###### Example
+```
+$oneSecond = new Seconds(1);
+// it is equivalent to
+$oneSecond = new Duration(1, Unit::SECONDS);
+```
+
 | Visibility | Function |
 |:-----------|:---------|
 | public | <strong>__construct(</strong><em>float</em> <strong>$value</strong>, <em>float</em> <strong>$unit</strong>)</strong> : <em>void</em><br /><em>Duration constructor.</em> |
@@ -218,10 +225,68 @@
 | public | <strong>slice(</strong><em>int/float</em> <strong>$count</strong>)</strong> : <em>[\RedMatter\Chrono\Duration\Duration](#class-redmatterchronodurationduration)</em><br /><em>Slice $this into $count equal intervals and get one.</em> |
 | public | <strong>subtract(</strong><em>[\RedMatter\Chrono\Duration\Duration](#class-redmatterchronodurationduration)</em> <strong>$other</strong>)</strong> : <em>\RedMatter\Chrono\Duration\$this</em><br /><em>Subtract $other from $this and return a new object; $this is left unmodified</em> |
 | public | <strong>value(</strong><em>float</em> <strong>$unit=-1</strong>)</strong> : <em>float</em><br /><em>Get duration value in given unit. If no unit is given, the object's own unit is assumed.</em> |
-###### Examples of Duration::createFrom()
+###### Examples of Duration::__toString()
+```
+$oneSecond = new Seconds(1);
+$twoSeconds = new Seconds(2);
+echo (string)$oneSecond; // prints "1 second"
+echo (string)$twoSeconds; // prints "2 seconds"
+```
+###### Examples of Duration::add()
 ```
 $d1 = new Seconds(10);
-$d2 = MicroSeconds::createFrom($d1);
+$res = $d1->add(new Seconds(3));  // $res will be "13 seconds"
+$res = $d1->add(new Seconds(-3)); // $res will be "7 seconds"
+```
+###### Examples of Duration::compare()
+```
+$oneSecond = new Seconds(1);
+$twoSeconds = new Seconds(1);
+$oneThousandMSeconds = new MilliSeconds(1000);
+echo $oneSecond->compare($oneThousandMSeconds); // prints "0"
+echo $oneSecond->compare($twoSeconds); // prints "-1"
+```
+###### Examples of Duration::createFrom()
+```
+$tenSeconds = new Seconds(10);
+$tenE6Microseconds = MicroSeconds::createFrom($d1);
+```
+###### Examples of Duration::divideFloat()
+```
+$d1 = new Seconds(100);
+$res = $d1->divideFloat(new Seconds(400)); // $res will be 0.25
+```
+###### Examples of Duration::divideInt()
+```
+$d1 = new Seconds(400);
+$res = $d1->divideInt(new Seconds(100)); // $res will be 4
+```
+###### Examples of Duration::intValue()
+```
+$d1 = new Seconds(10);
+$res = $d1->slice(4)->intValue(); // $res will be 2
+```
+###### Examples of Duration::modulo()
+```
+$d1 = new Seconds(11);
+$modulo = $d1->modulo(new Seconds(10)); // $modulo will be "1 second"
+```
+###### Examples of Duration::slice()
+```
+$d1 = new Seconds(100);
+$res = $d1->slice(4); // $res will be "25 seconds"
+```
+###### Examples of Duration::subtract()
+```
+$d1 = new Seconds(10);
+$res = $d1->subtract(new Seconds(3));  // $res will be "7 seconds"
+$res = $d1->subtract(new Seconds(-3)); // $res will be "13 seconds"
+```
+###### Examples of Duration::value()
+```
+$d1 = new Seconds(10);
+$res = $d1->slice(4)->value(); // $res will be 2.5
+$res = $d1->slice(4)->value(Unit::MILLISECONDS); // $res will be 2500
 ```
 
 <hr />

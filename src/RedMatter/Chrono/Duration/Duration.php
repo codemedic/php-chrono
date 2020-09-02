@@ -9,6 +9,11 @@ use DivisionByZeroError;
 
 /**
  * Models time-duration and facilitates its manipulation and comparison.
+ *
+ * @example
+ * $oneSecond = new Seconds(1);
+ * // it is equivalent to
+ * $oneSecond = new Duration(1, Unit::SECONDS);
  */
 class Duration
 {
@@ -37,6 +42,11 @@ class Duration
      * @param float $unit
      *
      * @return float
+     *
+     * @example
+     * $d1 = new Seconds(10);
+     * $res = $d1->slice(4)->value(); // $res will be 2.5
+     * $res = $d1->slice(4)->value(Unit::MILLISECONDS); // $res will be 2500
      */
     public function value($unit = Unit::UNCHANGED)
     {
@@ -53,6 +63,10 @@ class Duration
      * @param float $unit
      *
      * @return int
+     *
+     * @example
+     * $d1 = new Seconds(10);
+     * $res = $d1->slice(4)->intValue(); // $res will be 2
      */
     public function intValue($unit = Unit::UNCHANGED)
     {
@@ -80,6 +94,11 @@ class Duration
      * @param Duration $other
      *
      * @return $this
+     *
+     * @example
+     * $d1 = new Seconds(10);
+     * $res = $d1->add(new Seconds(3));  // $res will be "13 seconds"
+     * $res = $d1->add(new Seconds(-3)); // $res will be "7 seconds"
      */
     public function add(Duration $other)
     {
@@ -92,6 +111,11 @@ class Duration
      * @param Duration $other
      *
      * @return $this
+     *
+     * @example
+     * $d1 = new Seconds(10);
+     * $res = $d1->subtract(new Seconds(3));  // $res will be "7 seconds"
+     * $res = $d1->subtract(new Seconds(-3)); // $res will be "13 seconds"
      */
     public function subtract(Duration $other)
     {
@@ -104,6 +128,10 @@ class Duration
      * @param int|float $count
      *
      * @return Duration
+     *
+     * @example
+     * $d1 = new Seconds(100);
+     * $res = $d1->slice(4); // $res will be "25 seconds"
      */
     public function slice($count)
     {
@@ -120,6 +148,10 @@ class Duration
      * @param Duration $other
      *
      * @return int
+     *
+     * @example
+     * $d1 = new Seconds(400);
+     * $res = $d1->divideInt(new Seconds(100)); // $res will be 4
      */
     public function divideInt(Duration $other)
     {
@@ -132,6 +164,10 @@ class Duration
      * @param Duration $other
      *
      * @return float
+     *
+     * @example
+     * $d1 = new Seconds(100);
+     * $res = $d1->divideFloat(new Seconds(400)); // $res will be 0.25
      */
     public function divideFloat(Duration $other)
     {
@@ -148,6 +184,10 @@ class Duration
      * @param Duration $other
      *
      * @return static
+     *
+     * @example
+     * $d1 = new Seconds(11);
+     * $modulo = $d1->modulo(new Seconds(10)); // $modulo will be "1 second"
      */
     public function modulo(Duration $other)
     {
@@ -200,6 +240,13 @@ class Duration
      * @param Duration $other
      *
      * @return int
+     *
+     * @example
+     * $oneSecond = new Seconds(1);
+     * $twoSeconds = new Seconds(1);
+     * $oneThousandMSeconds = new MilliSeconds(1000);
+     * echo $oneSecond->compare($oneThousandMSeconds); // prints "0"
+     * echo $oneSecond->compare($twoSeconds); // prints "-1"
      */
     public function compare(Duration $other)
     {
@@ -220,8 +267,8 @@ class Duration
      * @return Duration|static
      *
      * @example
-     * $d1 = new Seconds(10);
-     * $d2 = MicroSeconds::createFrom($d1);
+     * $tenSeconds = new Seconds(10);
+     * $tenE6Microseconds = MicroSeconds::createFrom($d1);
      */
     public static function createFrom(Duration $other)
     {
@@ -237,6 +284,12 @@ class Duration
 
     /**
      * @return string
+     *
+     * @example
+     * $oneSecond = new Seconds(1);
+     * $twoSeconds = new Seconds(2);
+     * echo (string)$oneSecond; // prints "1 second"
+     * echo (string)$twoSeconds; // prints "2 seconds"
      */
     public function __toString()
     {
